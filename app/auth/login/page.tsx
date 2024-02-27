@@ -89,7 +89,7 @@ const LoginPage = () => {
         </FormikProvider>
 
         <p className="text-sm mt-4">
-          Don't have an account?{""}
+          Dont have an account?{" "}
           <a href="/auth/register" className="text-blue-500">
             Register here
           </a>

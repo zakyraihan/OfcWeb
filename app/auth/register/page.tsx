@@ -8,7 +8,7 @@ import InputText from "@/components/InputText";
 import Label from "@/components/Label";
 import Button from "@/components/Button";
 
-export const registerSchema = yup.object().shape({
+const registerSchema = yup.object().shape({
   nama: yup.string().nullable().default("").required("Wajib isi"),
   email: yup
     .string()

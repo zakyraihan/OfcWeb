@@ -2,14 +2,13 @@
 import * as yup from "yup";
 import useAuthModule from "../lib/auth_service";
 import { Form, FormikProvider, useFormik } from "formik";
-import { RegisterPayload } from "../interface/auth_interface";
+import { LoginPayload } from "../interface/auth_interface";
 import Image from "next/image";
 import InputText from "@/components/InputText";
 import Label from "@/components/Label";
 import Button from "@/components/Button";
 
-const registerSchema = yup.object().shape({
-  nama: yup.string().nullable().default("").required("Wajib isi"),
+const loginSchema = yup.object().shape({
   email: yup
     .string()
     .nullable()
@@ -24,13 +23,13 @@ const registerSchema = yup.object().shape({
     .min(8, "Minimal 8 karakater"),
 });
 
-const RegisterPage = () => {
-  const { useRegister } = useAuthModule();
-  const { error, isError, mutate, isLoading } = useRegister();
-  const formik = useFormik<RegisterPayload>({
-    initialValues: registerSchema.getDefault(),
+const LoginPage = () => {
+  const { useLogin } = useAuthModule();
+  const { error, isError, mutate, isLoading } = useLogin();
+  const formik = useFormik<LoginPayload>({
+    initialValues: loginSchema.getDefault(),
     enableReinitialize: true,
-    onSubmit: (payload) => {
+    onSubmit: (payload: any) => {
       mutate(payload);
     },
   });
@@ -50,20 +49,6 @@ const RegisterPage = () => {
 
         <FormikProvider value={formik}>
           <Form>
-            <div className="mb-4">
-              <Label htmlFor="nama" title="username" isRequired />
-              <InputText
-                value={values.nama}
-                onChange={(e: any) => {
-                  setFieldValue("nama", e.target.value);
-                }}
-                id="nama"
-                name="nama"
-                className="w-full border border-gray-300 p-2 rounded"
-                placeholder="username"
-              />
-            </div>
-
             <div className="mb-4">
               <Label htmlFor="email" title="email" isRequired />
               <InputText
@@ -94,7 +79,7 @@ const RegisterPage = () => {
             </div>
 
             <Button
-              title="Register"
+              title="Login"
               colorSchema="blue"
               height="xl"
               isLoading={isLoading}
@@ -104,9 +89,9 @@ const RegisterPage = () => {
         </FormikProvider>
 
         <p className="text-sm mt-4">
-          Already have an account?{" "}
-          <a href="/auth/login" className="text-blue-500">
-            Login here
+          Don't have an account?{""}
+          <a href="/auth/register" className="text-blue-500">
+            Register here
           </a>
         </p>
       </div>
@@ -114,4 +99,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default LoginPage;

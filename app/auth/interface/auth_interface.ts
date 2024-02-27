@@ -14,3 +14,8 @@ interface User {
 export interface RegisterPayload extends Pick<User, 'nama' | 'email' | 'password'> {}
 export interface RegisterResponse extends BaseResponseSucces {}
 
+export interface LoginPayload extends Pick<User, "email" | "password"> {}
+export interface LoginResponse extends BaseResponseSucces {
+  data: User;
+}
+
